@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ collection.name }} - Details</title>
+    <style>
+        /* General Reset */
+        * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+        }
+
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background: url("{% static 'images/store.jpg' %}") no-repeat center center fixed;
+             background-size: cover;
+            position: relative;
+        }
+         .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(8px);
+        }
+       /* Store header styling */
+        .store-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px 30px;
+            border-bottom: 2px solid #fff;
+            border-radius: 10px;
+        }
+
+        .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+
+        .store-name {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            color: yellow;
+        }
+
+        .admin-login {
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .admin-login:hover {
+            color: #f8c21d;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            background-color: black;
+            box-shadow: 0 4px 10px whitesmoke;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+        /* Main Collection Container */
+        .collection-container {
+            max-width: 800px;
+            background-color: black;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px whitesmoke;
+            text-align: center;
+        }
+
+        .collection-image {
+            width: 100%;
+            height: auto;
+            max-height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 18px;
+            color: green;
+        }
+
+        /* Order Form */
+        .order-form {
+            margin-top: 20px;
+            text-align: center;
+            background-color: grey;
+            box-shadow: 0 4px 10px whitesmoke;
+            border-radius: 10px;
+        }
+
+        .order-form h3 {
+            font-size: 20px;
+            color: cyan;
+            margin-bottom: 10px;
+        }
+
+        .order-form input, .order-form select, .order-form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 50%;
+            margin-top: 8px;
+        }
+
+        .order-form button {
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px whitesmoke;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-form button:hover {
+            background-color: #218838;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            margin: 20px auto;
+            text-align: center;
+            width: 50%;
+
+        }
+        .review p{
+            color: white;
+        }
+        .reviews h3 {
+            font-size: 22px;
+            color: cyan;
+            margin-bottom: 10px;
+        }
+
+        .review {
+            background-color: grey;
+            color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px whitesmoke;
+        }
+
+        .review strong {
+            color: white;
+            font-size: 14px;
+        }
+
+        .review em {
+            font-size: 12px;
+            color: white;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Add Review Form */
+        .add-review-form {
+            background-color: black;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 15px;
+             text-align: center;
+
+        }
+
+        .add-review-form h4 {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .add-review-form button {
+            background-color: grey;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-review-form button:hover {
+            background-color: green;
+        }
+
+        .delete-link {
+            color: red;
+            font-size: 12px;
+            text-decoration: none;
+            float: right;
+        }
+
+        .delete-link:hover {
+            color: #c9302c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .collection-container, .reviews, .add-review-form {
+                width: 90%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            h1, .store-name {
+                font-size: 22px;
+            }
+
+            .price {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="overlay"></div>
+    <!-- Store header section -->
+    <div class="store-header">
+        <img src="/static/images/logo.jpg" alt="Store Logo" class="logo">
+        <div class="store-name">ABC Cloth Store</div>
+        <a href="{% url 'admin:login' %}" class="admin-login">Admin Login</a>
+    </div>
+
+    <!-- Header section with navigation links -->
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'design_collection' %}">Designs</a>
+        </nav>
+    </header>
+
+    <!-- Collection details and forms -->
+    <div class="collection-container">
+        <h1>{{ collection.name }}</h1>
+        <img src="{{ collection.image.url }}" alt="{{ collection.name }}" class="collection-image">
+        <p>{{ collection.description }}</p>
+        <p class="price">Price: ₹{{ collection.price }}</p>
+
+        <!-- Order Form -->
+        <div class="order-form">
+            <h3>Order this item</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ order_form.as_p }}
+                <button type="submit" name="order" value="true">Place Order</button>
+
+            </form>
+            <br>
+        </div>
+    </div><hr>
+
+    <!-- Review Section -->
+    <div class="reviews">
+        <h3>Customer Reviews</h3>
+        {% for review in reviews %}
+            <div class="review">
+                <strong>User name: {{ review.reviewer_name|default:review.user.username }}</strong>
+                <p>Review: {{ review.content }}</p>
+                <p>Rating: {{ review.rating }} / 5</p>
+                <em>{{ review.created_at }}</em>
+                {% if user.is_staff %}
+                    <a href="{% url 'delete_review' review.id %}" class="delete-link">Delete</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No reviews yet. Be the first to review!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Review Form -->
+    {% if user.is_authenticated %}
+        <div class="add-review-form">
+            <h4>Add Your Review</h4>
+            <form method="post" action="{% url 'add_review' collection.id %}">
+                {% csrf_token %}
+                {{ review_form.as_p }}
+                <button type="submit" name="review" value="true">Submit Review</button>
+            </form>
+        </div>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to add a review.</p>
+    {% endif %}
+
+</body>
+</html>

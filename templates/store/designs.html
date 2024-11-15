@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Cloth Store</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            position: relative;
+        }
+
+        /* Background image and blur effect */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/static/images/store.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* Semi-transparent overlay for text readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Store name section */
+        .store-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 30px;
+            border-bottom: 2px solid #fff;
+            border-radius: 10px;
+        }
+
+        .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+
+        .store-name {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            color: yellow;
+        }
+
+        .admin-login {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .admin-login:hover {
+            color: #ddd;
+        }
+
+        /* Header navigation */
+        header {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            box-shadow: 0 4px 10px whitesmoke;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ddd;
+        }
+
+        /* Design section */
+        h2 {
+            font-size: 28px;
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #fff;
+        }
+
+        /* Design container styling */
+        .design-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .design-item {
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: black;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .design-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .design-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .design-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: white;
+        }
+
+        /* Responsive Design for tablets and mobile */
+        @media (max-width: 768px) {
+            /* Keep store-header elements side by side */
+            .store-header {
+                flex-direction: row;
+                padding: 15px;
+            }
+
+            header {
+                padding: 10px;
+            }
+
+            .design-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .design-item {
+                width: 50%;
+                margin: 10px 0;
+            }
+        }
+
+        /* Mobile view adjustments */
+        @media (max-width: 480px) {
+            /* Reduced padding and font sizes for mobile */
+            .store-header {
+                padding: 10px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .store-name {
+                font-size: 24px;
+                margin-top: 10px;
+            }
+
+            .logo {
+                margin: 0;
+                max-width: 40px;
+                max-height: 40px;
+            }
+
+            .admin-login {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+
+            header {
+                padding: 5px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 22px;
+                margin: 20px 0 10px;
+            }
+
+            .design-container {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .design-item {
+                width: 100%;
+                margin: 5px 0;
+                padding: 10px;
+            }
+
+            .design-item h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background image with blur effect -->
+    <div class="background"></div>
+
+    <!-- Semi-transparent overlay -->
+    <div class="overlay"></div>
+
+    <!-- Store header section -->
+    <div class="store-header">
+        <img src="/static/images/logo.jpg" alt="Store Logo" class="logo">
+        <div class="store-name">ABC Cloth Store</div>
+        <a href="{% url 'admin:login' %}" class="admin-login">Admin Login</a>
+    </div>
+
+    <!-- Header navigation section -->
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'design_collection' %}">Designs</a>
+        </nav>
+    </header>
+
+    <!-- Designs section -->
+    <h2>Designs</h2>
+    <div class="design-container">
+        {% for design in designs %}
+            <div class="design-item">
+                {% if design.id %}
+                    <a href="{% url 'collections_by_design' design.id %}">
+                        <img src="{{ design.image.url }}" alt="{{ design.name }}">
+                    </a>
+                {% else %}
+                    <p>No collections available</p>
+                {% endif %}
+                 <h3>{{ design.name }}</h3>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

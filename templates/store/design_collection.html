@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ design.name }} Collections</title>
+    <style>
+        /* Reset some default styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* General body styling with background image */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background: url("{% static 'images/store.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Semi-transparent overlay with blur effect for readability */
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Store header styling */
+        .store-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px 30px;
+            border-bottom: 2px solid #fff;
+            border-radius: 10px;
+        }
+
+        .logo {
+            max-width: 50px;
+            max-height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+
+        .store-name {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            color: yellow;
+        }
+
+        .admin-login {
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .admin-login:hover {
+            color: #f8c21d;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 10px whitesmoke;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        .intro {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 20px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .intro h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: cyan;
+        }
+
+        .intro p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        h2 {
+            font-size: 28px;
+            text-align: center;
+            margin: 40px 0 20px;
+            color: white;
+        }
+
+        /* Collection container styling */
+        .collection-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        /* Collection item styling with border */
+        .collection-item {
+            width: 220px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #fff; /* White border for visibility */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        }
+
+        /* Image styling within collection item */
+        .collection-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Hover effect for collection items */
+        .collection-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid grey; /* Highlight border color on hover */
+        }
+
+        /* Styling for collection item title */
+        .collection-item h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* Styling for collection item price */
+        .collection-item .price {
+            font-weight: bold;
+            color: cyan;
+        }
+
+        /* Responsive Design for tablets and mobile */
+        @media (max-width: 768px) {
+            /* Keep store-header elements side by side */
+            .store-header {
+                flex-direction: row;
+                padding: 15px;
+            }
+
+            header {
+                padding: 10px;
+            }
+
+            .design-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .design-item {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+                margin: 20px 0 10px;
+            }
+
+            .store-header, header, nav, .intro, .design-item {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .store-name {
+                font-size: 20px;
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div> <!-- Overlay for background effect -->
+
+    <div class="store-header">
+        <img src="/static/images/logo.jpg" alt="Store Logo" class="logo">
+        <div class="store-name">ABC Cloth Store</div>
+        <a href="{% url 'admin:login' %}" class="admin-login">Admin Login</a>
+    </div>
+
+    <!-- Header section with navigation links -->
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'design_collection' %}">Designs</a>
+        </nav>
+    </header>
+
+    <h2>Collections for {{ design.name }}</h2>
+    <div class="collection-container">
+        {% for collection in collections %}
+            <div class="collection-item">
+                <a href="{% url 'collection_detail' collection.id %}">
+                    <img src="{{ collection.image.url }}" alt="{{ collection.name }}">
+                </a>
+                <h3>{{ collection.name }}</h3>
+                <p>{{ collection.description }}</p>
+                <p class="price">Price: ₹{{ collection.price }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
